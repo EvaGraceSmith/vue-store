@@ -1,5 +1,12 @@
 # vue-store
 
+## Collaboration
+
+Kati Lee
+Eva Grace Smith
+
+Tutor: Mark Smith
+
 ## Project setup
 ```
 npm install
