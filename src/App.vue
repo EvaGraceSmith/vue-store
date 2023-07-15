@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <a href="#/">Home</a> |
+  <a href="#/salesindex">SalesIndex</a> |
+  <component :is="currentView" />
+  <HomeIndex msg="This is the Index"/>
+  <SalesIndex msg="This is the SalesIndex"/>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { ref, computed } from 'vue'
+import HomeIndex from './components/HomeIndex.vue'
+import SalesIndex from './components/SalesIndex.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+const routes = {
+  '/index': HomeIndex,
+  '/salesindex': SalesIndex
 }
+
+const currentPath = ref(window.location.hash)
+
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash
+})
+
+const currentView = computed(() => {
+  return routes[currentPath.value.slice(1) || '/'] || HomeIndex
+})
+
+
+// export default {
+//   name: 'App',
+//   components: {
+//     HomeIndex,
+//   }
+// }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
