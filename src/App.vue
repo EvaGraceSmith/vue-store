@@ -1,9 +1,9 @@
 <template>
-    <a href="#/">Home</a> |
-  <a href="#/salesindex">SalesIndex</a> |
+    <!-- <a href="#/">Home</a> |
+  <a href="#/sales">Sales</a> | -->
   <component :is="currentView" />
-  <HomeIndex msg="This is the Index"/>
-  <SalesIndex msg="This is the SalesIndex"/>
+  <!-- <HomeIndex msg="This is the Index"/>
+  <SalesIndex msg="This is the SalesIndex"/> -->
 </template>
 
 <script setup>
@@ -12,8 +12,8 @@ import HomeIndex from './components/HomeIndex.vue'
 import SalesIndex from './components/SalesIndex.vue'
 
 const routes = {
-  '/index': HomeIndex,
-  '/salesindex': SalesIndex
+  '/': HomeIndex,
+  '/sales': SalesIndex
 }
 
 const currentPath = ref(window.location.hash)

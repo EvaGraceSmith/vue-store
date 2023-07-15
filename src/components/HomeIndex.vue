@@ -23,9 +23,8 @@
             
 
             <ul class="navigation-bar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="sales.html">Sales</a></li>
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/sales">Sales</a></li>
             </ul>
 
                 <h1 class="logo">The Cookie Stand</h1>
