@@ -1,5 +1,5 @@
 <template>
-<html>
+<html ref="root">
     <head>
         <!-- Google fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,271 +24,151 @@
             <h1 class="logo">The Cookie Stand</h1>
             <img class="salmon" src="../img/salmon.png" alt="Salmon logo">
     </header>
-<main class="sales-page">
-
-        <!-- <p>This is the sales sheet</p> -->
 
 
-<section class="form content-wrap">
-
-
-    <!-- <h2>New Store Location Info</h2> -->
-
-    <form id="new-location">
+  <main class="sales-page">
+    <section class="form content-wrap">
+      <form @submit.prevent="addLocation">
         <fieldset>
-            <legend>Add a new location to the table!</legend>
-              <label for="name">Location:</label>
-             <input type="text" id="location" required><br>
-             <label for="minCustomersPerHour">Minimun number of Customers Per Hour:</label>
-             <input type="text" id="minCustomersPerHour" required><br>
-             <label for="maxCustomersPerHour">Maximum number of Customers Per Hour:</label>
-             <input type="text" id="maxCustomersPerHour" required><br>
-             <label for="avgCookiesPerSale" >Average number of Cookies Per Sale: </label>
-             <input type="text" id="avgCookiesPerSale" required>
-
+          <legend>Add a new location to the table!</legend>
+          <label for="location">Location:</label>
+          <input v-model="newLocation.location" type="text" id="location" required><br>
+          <label for="minCustomersPerHour">Minimum number of Customers Per Hour:</label>
+          <input v-model="newLocation.minCustomersPerHour" type="text" id="minCustomersPerHour" required><br>
+          <label for="maxCustomersPerHour">Maximum number of Customers Per Hour:</label>
+          <input v-model="newLocation.maxCustomersPerHour" type="text" id="maxCustomersPerHour" required><br>
+          <label for="avgCookiesPerSale">Average number of Cookies Per Sale:</label>
+          <input v-model="newLocation.avgCookiesPerSale" type="text" id="avgCookiesPerSale" required>
         </fieldset>
 
-          <div>
-            <button type="reset">Reset Form</button>
-            <button id="submit">Submit New Location</button>
-          </div>
-    </form>
-</section>
+        <div>
+          <button type="reset">Reset Form</button>
+          <button type="submit">Submit New Location</button>
+        </div>
+      </form>
+    </section>
 
-        <!-- Display the lists on sales.html.  -->
 
-<div id="table">
-<table id="salesData">
-    <thead>
 
-    </thead>
-    <tbody>
-
-    </tbody>
-    <tfoot>
-
-    </tfoot>
-</table>
-
-</div>
+    <div id="table">
+      <table id="salesData">
+        <thead>
+          <tr>
+            <th v-for="header in headers" :key="header">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="row in rows" :key="row.location">
+            <td>{{ row.location }}</td>
+            <td v-for="sales in row.sales" :key="sales">{{ sales }}</td>
+            <td>{{ calculateTotal(row) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 </main>
-<footer>
-    <p>We make Salmon Cookies so you don't have to!</p>
-            </footer>
-        <!-- <script src="../js/app.js"></script> -->
-    </body>
+    <footer>
+      <p>We make Salmon Cookies so you don't have to!</p>
+    </footer>
+
+</body>
 </html>
 </template>
+
 <script>
-import { ref, onMounted } from 'vue'
+export default {
+  data() {
+    return {
+      newLocation: {
+        location: '',
+        minCustomersPerHour: '',
+        maxCustomersPerHour: '',
+        avgCookiesPerSale: ''
+      },
+      headers: [
+        'Location',
+        '6AM',
+        '7AM',
+        '8AM',
+        '9AM',
+        '10AM',
+        '11AM',
+        '12PM',
+        '1PM',
+        '2PM',
+        '3PM',
+        '4PM',
+        '5PM',
+        '6PM',
+        '7PM',
+        'Daily Location Total'
+      ],
+      rows: []
+    };
+  },
+  mounted() {
+    this.generateTableRows();
+  },
+  methods: {
+    addLocation() {
+      // Add the new location to the table
+      let newRow = {
+        location: this.newLocation.location,
+        minCustomersPerHour: this.newLocation.minCustomersPerHour,
+        maxCustomersPerHour: this.newLocation.maxCustomersPerHour,
+        avgCookiesPerSale: this.newLocation.avgCookiesPerSale,
+        sales: []
+      };
 
-    const root = ref(null)
-
-    onMounted(() => {
-      // the DOM element will be assigned to the ref after initial render
-    //   console.log(root.value) // <div>This is a root element</div>
-    // })
-
-    'use strict';
-console.log ('Hello from the js file');
-
-//global variable
-StoreLocation.allStoreLocation=[];
-
-
-let hours =['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-
-// Replace all of your object literals for the salmon cookie stand with a single constructor function that,
-//  when called with the ‘new’ keyword, it creates a new instance.
-// Constructor function
-function StoreLocation (location, min, max, avgCookies) {
-  this.location = location;
-  this.minCustomersPerHour = min;
-  this.maxCustomersPerHour = max;
-  this.avgCookiesPerSale = avgCookies;
-  this.hourlyArray = [];
-  this.cookieTotal=0;
-  StoreLocation.allStoreLocation.push(this);
-}
-
-
-StoreLocation.prototype.generateCookiesPerHour = function () {
-  let min = this.minCustomersPerHour;
-  let max = this.maxCustomersPerHour;
-  let random = Math.ceil(Math.random() * (max + 1 -min)) +min;
-  return random;
-};
-
-
-// Break each column by the hour and complete each row with a “Daily Location Total”.
-StoreLocation.prototype.cookiePurchased= function (){
-  for (let i = 0; i < hours.length; i++){
-    // store hourly cookie totals based on num customers per hour
-    this.hourlyArray[i]= Math.floor(this.generateCookiesPerHour() * this.avgCookiesPerSale);
-    // daily store cookie total
-    let cookieForThisHour = this.hourlyArray[i];
-    this.cookieTotal = this.cookieTotal + cookieForThisHour;
-    //console.log(this.hourlyArray);
-  }
-};
-
-StoreLocation.prototype.renderTableData = function () {
-  let table = root.value.getElementById('salesData');
-  let row = root.value.createElement('tr');
-
-  // city name cell
-  let cityNameCell = root.value.createElement('th');
-  cityNameCell.textContent = this.location;
-  row.appendChild(cityNameCell);
-
-  let tableDataCell;
-  // cookie data x 14
-  for (let i = 0; i < hours.length; i++) {
-    tableDataCell = root.value.createElement('td');
-    tableDataCell.textContent = this.hourlyArray[i];
-    row.appendChild(tableDataCell);
-  }
-
-  tableDataCell = root.value.createElement('td');
-  tableDataCell.textContent = this.cookieTotal;
-  row.appendChild(tableDataCell);
-  table.appendChild(row);
-};
-
-
-// Display each stores data in a table format similar to what is below.
-//Create Table head
-function renderTableHeaders(){
-  let table =root.value.getElementById('salesData');
-  let row=root.value.createElement('tr');
-  let tableHeadCell=root.value.createElement('th');
-  row.appendChild(tableHeadCell);
-
-  //hour of the day headers
-  for (let i=0; i<hours.length; i++){
-    tableHeadCell=root.value.createElement('th');
-    tableHeadCell.textContent=hours[i];
-    row.appendChild(tableHeadCell);
-  }
-  // total header
-  tableHeadCell = root.value.createElement('th');
-  tableHeadCell.textContent= 'Daily Location Total';
-  row.appendChild(tableHeadCell);
-
-  table.appendChild(row);
-}
-renderTableHeaders();
-
-
-function renderTableFooter () {
-  let table = root.value.getElementById('salesData');
-  let row = root.value.createElement('tr');
-  let tableFootCell = root.value.createElement('th');
-  let hoursOfDay = hours.length;
-  tableFootCell.textContent = 'Totals';
-  row.appendChild(tableFootCell);
-
-  // to look at 14 hours of the day for 14 totals cells
-  for (let i = 0; i < hoursOfDay; i++) {
-    let cookieRowTotal = 0;
-    // add up cookies from all locations
-    for (let j = 0; j < locationInfo.length; j++) {
-      cookieRowTotal = cookieRowTotal + locationInfo[j].hourlyArray[i];
-    }
-    //creates footer cells
-    tableFootCell = root.value.createElement('td');
-    tableFootCell.textContent = cookieRowTotal;
-    row.appendChild(tableFootCell);
-  }
-
-  //adds all location totals together into bottom right cell:
-  let superTotal = 0;
-  for (let i = 0; i < locationInfo.length; i++) {
-    superTotal = superTotal + locationInfo[i].cookieTotal;
-    //console.log(locationInfo[i].cookieTotal);
-  }
-  //creates html element
-  tableFootCell = root.value.createElement('td');
-  tableFootCell.textContent = superTotal;
-  row.appendChild(tableFootCell);
-
-  //named this row in order to update later
-  row.id = 'footer';
-  table.appendChild(row);
-}
-//  Create function to handle the form submission.
-function handleForm(event){
-  event.preventDefault();
-
-  let locationElement = root.value.getElementById('location');
-  let locationValue = locationElement['value'];
-
-  //IMPORTANT: MAKE SURE THE VALUE INPUTED IN FORM CONVERTS TO A NUMBER:
-
-  let minCustomersPerHourElement = root.value.getElementById('minCustomersPerHour');
-  let minCustomersPerHourValue = Number(minCustomersPerHourElement['value']);
-
-  let maxCustomersPerHourElement = root.value.getElementById('maxCustomersPerHour');
-  let maxCustomersPerHourValue = Number(maxCustomersPerHourElement['value']);
-
-  let avgCookiesPerSaleElement = root.value.getElementById('avgCookiesPerSale');
-  let avgCookiesPerSaleValue = Number(avgCookiesPerSaleElement['value']);
-
-
-
-  //remove old totals in footer
-  let OldtableTableFooter = root.value.getElementById('footer');
-  OldtableTableFooter.remove();
-
-  //create the new location
-  // use our constructor
-  let newLocation= new StoreLocation(locationValue, minCustomersPerHourValue, maxCustomersPerHourValue, avgCookiesPerSaleValue);
-  //update cookies per hour and render new table row
-  newLocation.generateCookiesPerHour();
-  newLocation.cookiePurchased();
-  newLocation.renderTableData();
-  //updates table with new totals:
-  renderTableFooter();
-
-  // **********Form and Button JS**************
-  //make sure form clear out and resets on submit.
-  let locationForm=root.value.getElementById('new-location');
-  locationForm.reset();
-}
-
-// using an array to get info and pass them into constructor
-let seattleInfo=new StoreLocation('Seattle', 23, 65, 6.3);
-let tokyoInfo=new StoreLocation('Tokoyo', 3, 24, 1.2);
-let dubaiInfo=new StoreLocation('Dubai', 11, 38, 3.7);
-let parisInfo=new StoreLocation('Paris', 20, 38, 2.3);
-let limaInfo=new StoreLocation('Lima', 2,16,4.6);
-
-let locationInfo=[seattleInfo,tokyoInfo, dubaiInfo, parisInfo, limaInfo];
-
-// Replace the lists of your data for each store and build a single table of data instead.
-for (let i=0; i<locationInfo.length; i++){
-  locationInfo[i].generateCookiesPerHour();
-  locationInfo[i].cookiePurchased();
-  locationInfo[i].renderTableData();
-}
-//this renders new information after filling out form
-renderTableFooter();
-
-
-//1. get our element
-let locationForm = root.value.getElementById('new-location');
-console.log('new-location:', locationForm);
-//2. which event am I listening for 'submit'
-//add an event listener
-locationForm.addEventListener('submit', handleForm);
-})
-    export default {
-      name: 'SalesIndex',
-      props: {
-        msg: String
+      for (let i = 0; i < 15; i++) {
+        newRow.sales.push(this.getRandomNumber(20, 80));
       }
+
+      newRow.sales.push(this.calculateTotal(newRow));
+      this.rows.push(newRow);
+
+      // Reset the form
+      this.newLocation = {
+        location: '',
+        minCustomersPerHour: '',
+        maxCustomersPerHour: '',
+        avgCookiesPerSale: ''
+      };
+    },
+
+    generateTableRows() {
+      let locations = ['Seattle', 'Tokyo', 'Dubai', 'Paris', 'Lima'];
+
+      for (let i = 0; i < locations.length; i++) {
+        let row = {
+          location: locations[i],
+          sales: []
+        };
+
+        for (let j = 0; j < 15; j++) {
+          row.sales.push(this.getRandomNumber(20, 80));
+        }
+
+        this.rows.push(row);
+      }
+    },
+    calculateTotal(row) {
+      let total = 0;
+
+      for (let i = 0; i < row.sales.length; i++) {
+        total += parseInt(row.sales[i]);
+      }
+
+      return total;
+    },
+    getRandomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
     }
-    </script>
+  }
+};
+</script>
+
+
     
     <!-- Add "scoped" attribute to limit CSS to this component only -->
     
