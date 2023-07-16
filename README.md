@@ -22,7 +22,14 @@
 Score (Out of 10): 8
 
 #### General Comments
-Describe the stack (front-end only? full stack?), database, efficiency, etc. Describe the general usability and learnability
+
+
+"In 2014, a lone developer, Evan You, built and released Vue.js, an open-sourced frontend framework in order to improve on available JavaScript tools. A former Google employee, he wanted to create a framework that combined the best approaches to frontend development from frameworks like Angular, Ember, and React with other features that made writing web apps faster, easier, and more pleasant.
+
+* **Virtual DOM** —instead of re-rendering the whole page as is the case with regular DOM, React and Vue update only those objects that have changed, saving time and resources that heavy DOM manipulations otherwise consume.
+* **Component-based UI development** — Vue’s and React’s considerable libraries of components facilitate code reuse, improve developer productivity, and speed up the development process.
+* **Focus on the view library** — separate concerns for routing, state management, etc.
+* **Usage of JavaScript** — both frameworks rely partially on JS which also means that developers that know this technology can easily learn both React and Vue.""
 
 [Comparing Vue and React in 2023: Pros and Cons](https://dev.to/ptheodosiou/comparing-vue-and-react-in-2023-pros-and-cons-10nl#:~:text=Vue%20and%20React%20are%20still%20popular%20web%20development%20frameworks%20in,personal%20experience%20with%20the%20frameworks.)
 
