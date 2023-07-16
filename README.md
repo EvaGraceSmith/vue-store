@@ -84,9 +84,10 @@ The share of Vue.js users grew from 34% in 2020 to 43% in 2021 while React exper
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Ramp-Up Projections
+
 How long would/should it take a team of mid-junior developers to become productive?
 
-
+We found Vue to be fairly easy to implement and learn. It would take a few weeks or months to be productive depending on the size of the project. 
 
 ### Links and Resources
 
@@ -126,4 +127,5 @@ Endpoint: /#/
 Returns the home page.
 Endpoint: /#/sales/
 Returns the sales page and data.
+
 © Code Fellows 2023
