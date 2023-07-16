@@ -68,7 +68,6 @@ Score (Out of 10): 8
 The share of Vue.js users grew from 34% in 2020 to 43% in 2021 while React experienced a drop from 64% to 49% in a YoY comparison.
 ### ![Developers](./src/img/developers.png)
 
-The share of Vue.js users grew from 34% in 2020 to 43% in 2021 while React experienced a drop from 64% to 49% in a YoY comparison. 
 
 ### Documentation
 "Since Vue has a very active community, there’s a plethora of well-maintained and organized documentation. This makes it easier to learn and find solutions to issues you could encounter. Actually, 76% of Vue survey participants pointed to great documentation as the biggest advantage of the framework. The overhauled documentation has been one of the core updates in Vue 3."
