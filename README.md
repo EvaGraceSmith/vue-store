@@ -127,5 +127,3 @@ npm run lint
 Endpoint: /#/ Returns the home page.
 
 Endpoint: /#/sales/ Returns the sales page and data.
-
-© Code Fellows 2023
