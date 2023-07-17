@@ -17,6 +17,8 @@
 
 # vue-store
 
+#### UML
+ ![UML](./src/img/lab40UML.png)
 
 ### Overall Score and Comments
 Score (Out of 10): 8
