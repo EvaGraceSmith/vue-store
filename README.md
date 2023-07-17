@@ -99,7 +99,8 @@ Examples/Tutorials:
 [Playground](https://vuejs.org/examples/#hello-world)
 
 #### Code Demos:
-[The Cookie Stand](https://voluble-malabi-e8f16e.netlify.app/#/sales)
+[vue-store](https://voluble-malabi-e8f16e.netlify.app/#/sales)
+
 [vue-store repository](https://github.com/EvaGraceSmith/vue-store)
 
 # Operating Instructions
@@ -123,9 +124,8 @@ npm run build
 npm run lint
 ```
 
-Endpoint: /#/
-Returns the home page.
-Endpoint: /#/sales/
-Returns the sales page and data.
+Endpoint: /#/ Returns the home page.
+
+Endpoint: /#/sales/ Returns the sales page and data.
 
 © Code Fellows 2023
