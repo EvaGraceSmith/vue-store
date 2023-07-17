@@ -63,6 +63,7 @@ Score (Out of 10): 8
 
 ### Popularity
 ### ![Popularity](./src/img/popularity.png)
+
 ### Usage among developers
 
 The share of Vue.js users grew from 34% in 2020 to 43% in 2021 while React experienced a drop from 64% to 49% in a YoY comparison.
@@ -93,9 +94,13 @@ We found Vue to be fairly easy to implement and learn. It would take a few weeks
 
 
 [Vue Documentation](https://vuejs.org/guide/introduction.html)
-Examples/Tutorials:
+
+### Examples/Tutorials:
+
 [Tutorial](https://vuejs.org/tutorial/#step-1)
+
 [Quick Start](https://vuejs.org/guide/quick-start.html)
+
 [Playground](https://vuejs.org/examples/#hello-world)
 
 #### Code Demos:
