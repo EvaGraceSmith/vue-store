@@ -101,6 +101,7 @@ export default {
         '5PM',
         '6PM',
         '7PM',
+        '8PM',
         'Daily Location Total'
       ],
       rows: []
