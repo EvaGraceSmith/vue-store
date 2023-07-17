@@ -427,7 +427,7 @@ h2 {
 .locations {
   display: flex;
   font-family: 'Josefin Sans', sans-serif;
-  line-height: 1.5;
+  line-height: 1;
   height: 200px;
   max-width: 960px;
   justify-content:center;
